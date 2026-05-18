@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   weather-app-dev:
-    image: maven:3.8-openjdk-11-slim
+    image: maven:3.8-eclipse-temurin-11
     command: mvn spring-boot:run
     working_dir: /app
     container_name: weather-app-dev
