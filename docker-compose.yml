@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   weather-app-dev:
-    build: .
+    image: maven:3.8-openjdk-11-slim
+    command: mvn spring-boot:run
+    working_dir: /app
     container_name: weather-app-dev
     ports:
       - "${SERVER_PORT:-8082}:${SERVER_PORT:-8082}"
