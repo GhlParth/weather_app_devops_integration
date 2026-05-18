@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast | Real-time Weather</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <form class="search-box" action="/" method="get">
+            <input type="text" name="city" th:value="${city}" placeholder="Enter city name..." autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+
+        <div th:if="${weather != null}" class="weather-info">
+            <h1 class="city-name" th:text="${weather.name}">London</h1>
+            <p class="country" th:text="${weather.sys.country}">GB</p>
+            
+            <div class="temp-container">
+                <img th:src="@{'https://openweathermap.org/img/wn/' + ${weather.weather[0].icon} + '@4x.png'}" alt="Weather Icon">
+                <h2 class="temp"><span th:text="${#numbers.formatDecimal(weather.main.temp, 0, 0)}">15</span>°C</h2>
+                <p class="condition" th:text="${weather.weather[0].description}">Clear Sky</p>
+            </div>
+
+            <div class="details">
+                <div class="detail-item">
+                    <p class="detail-label">Humidity</p>
+                    <p class="detail-value"><span th:text="${weather.main.humidity}">65</span>%</p>
+                </div>
+                <div class="detail-item">
+                    <p class="detail-label">Wind Speed</p>
+                    <p class="detail-value"><span th:text="${weather.wind.speed}">4.2</span> m/s</p>
+                </div>
+                <div class="detail-item">
+                    <p class="detail-label">Feels Like</p>
+                    <p class="detail-value"><span th:text="${#numbers.formatDecimal(weather.main.feels_like, 0, 0)}">14</span>°C</p>
+                </div>
+                <div class="detail-item">
+                    <p class="detail-label">Pressure</p>
+                    <p class="detail-value"><span th:text="${weather.main.pressure}">1012</span> hPa</p>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${weather == null}" class="error">
+            <p>Oops! Could not find weather for "<span th:text="${city}"></span>".</p>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #94a3b8;">Make sure your API key is configured correctly.</p>
+        </div>
+    </div>
+</body>
+</html>
