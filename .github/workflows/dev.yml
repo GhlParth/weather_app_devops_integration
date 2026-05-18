@@ -66,3 +66,10 @@ jobs:
           # Run the container, using the .env.dev file manually placed on the server
           # Assuming it's in the home directory or project directory, adjust path if needed:
           docker run -d --name weather-app-dev -p 8082:8082 --env-file /home/ubuntu/weather_app/.env.dev --restart unless-stopped ${{ secrets.DOCKERHUB_USERNAME }}/weather-app:dev
+
+    - name: Print Application URL
+      run: |
+        echo "=================================================="
+        echo "🚀 Application successfully deployed to EC2!"
+        echo "🌐 Access your app here: http://${{ secrets.EC2_HOST }}:8082"
+        echo "=================================================="
