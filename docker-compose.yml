@@ -8,10 +8,8 @@ services:
       - "${SERVER_PORT:-8082}:${SERVER_PORT:-8082}"
       # Expose LiveReload port for Spring Boot DevTools
       - "35729:35729"
-    environment:
-      - WEATHER_API_KEY=${WEATHER_API_KEY}
-      - SPRING_PROFILES_ACTIVE=${SERVER_ENV:-dev}
-      - SERVER_PORT=${SERVER_PORT:-8082}
+    env_file:
+      - .env.dev
     volumes:
       # Mount the current directory to /app in the container
       - .:/app
